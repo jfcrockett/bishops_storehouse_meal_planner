@@ -34,7 +34,7 @@ pip install streamlit
 
 1. Run the Streamlit app:
 ```bash
-streamlit run meal_planner.py
+streamlit run app.py
 ```
 
 2. In your web browser:
@@ -46,7 +46,7 @@ streamlit run meal_planner.py
 
 ## Application Structure
 
-- `meal_planner.py`: Main application file containing all code
+- `app.py`: Main application file containing all code
 - Key components:
   - `MEAL_PORTIONS`: Dictionary of available ingredients and their portion sizes
   - `MEALS`: Dictionary of all recipes with ingredients and instructions
