@@ -54,171 +54,237 @@ MEAL_PORTIONS = {
 # Define all meals with ingredients and instructions
 MEALS = {
     'Breakfast': {
-        'Oatmeal with Honey and Fruit': {
+        'Berry Oatmeal Bowl': {
             'ingredients': {
                 'rolled oats': 1/12,
+                'milk': 1/16,
+                'raspberry jam': 1/24,
                 'honey': 1/24,
-                'milk': 1/16
+                'cinnamon': 1/24
             },
             'instructions': [
-                "Bring milk to a gentle boil",
-                "Add oats and reduce heat to medium-low",
-                "Cook for 5 minutes, stirring occasionally",
-                "Remove from heat and let stand for 2 minutes",
-                "Top with honey"
+                "Heat milk until warm (stovetop or microwave)",
+                "Add oats and cook until soft, about 5 minutes",
+                "Stir in a small spoonful of raspberry jam",
+                "Drizzle with honey and sprinkle with cinnamon",
+                "Let stand for 1 minute before serving"
             ]
         },
-        'Pancakes with Syrup': {
+        'Peanut Butter Toast with Honey': {
+            'ingredients': {
+                'bread': 2/10,
+                'peanut butter': 1/24,
+                'honey': 1/24,
+                'cinnamon': 1/24
+            },
+            'instructions': [
+                "Toast bread slices",
+                "Spread peanut butter on warm toast",
+                "Drizzle honey over peanut butter",
+                "Sprinkle lightly with cinnamon",
+                "Cut into triangles if desired"
+            ]
+        },
+        'Cereal Breakfast Medley': {
+            'ingredients': {
+                'honey nut o\'s': 1/8,
+                'raisin bran': 1/8,
+                'milk': 1/16,
+                'peaches': 1/6
+            },
+            'instructions': [
+                "Mix both cereals in a bowl",
+                "Drain peaches, reserving 2 tbsp juice",
+                "Chop peaches into small pieces",
+                "Add peaches with reserved juice to cereal",
+                "Pour milk over the mixture and enjoy"
+            ]
+        },
+        'Savory Breakfast Bowl': {
+            'ingredients': {
+                'eggs': 1/4,
+                'rice': 1/12,
+                'cheddar cheese': 1/8,
+                'salsa': 1/8
+            },
+            'instructions': [
+                "Cook rice according to package directions",
+                "Scramble eggs in a pan until just set",
+                "Place hot rice in a bowl",
+                "Top with scrambled eggs",
+                "Add shredded cheese and salsa on top"
+            ]
+        },
+        'Pancakes with Fruit Topping': {
             'ingredients': {
                 'pancake mix': 1/24,
                 'eggs': 1/4,
-                'milk': 1/16
-            },
-            'instructions': [
-                "Mix pancake mix, eggs, and milk in a bowl until just combined (small lumps are okay)",
-                "Heat a pan or griddle over medium heat",
-                "Pour about 1/4 cup batter for each pancake",
-                "Cook until bubbles form on surface, then flip",
-                "Cook other side until golden brown"
-            ]
-        },
-        'Apple Cinnamon Oatmeal': {
-            'ingredients': {
-                'rolled oats': 1/12,
-                'applesauce': 1/6,
-                'cinnamon': 1/24,
-                'milk': 1/16
-            },
-            'instructions': [
-                "Heat milk in a pan until warm",
-                "Add oats and cook on medium-low heat",
-                "Stir in applesauce and cinnamon",
-                "Cook until desired consistency",
-                "Add more milk if needed"
-            ]
-        },
-'Breakfast Rice Pudding': {
-            'ingredients': {
-                'rice': 1/12,
                 'milk': 1/16,
-                'cinnamon': 1/24,
-                'raisins': 1/24
+                'butter': 1/32,
+                'peaches': 1/6
             },
             'instructions': [
-                "Heat cooked rice with milk",
-                "Add cinnamon and raisins",
-                "Cook until creamy, stirring often",
-                "Let stand 5 minutes before serving"
-            ]
-        },
-        'PB Banana Oatmeal': {
-            'ingredients': {
-                'rolled oats': 1/12,
-                'peanut butter': 1/24,
-                'milk': 1/16
-            },
-            'instructions': [
-                "Cook oats with milk according to package directions",
-                "Stir in peanut butter until melted",
-                "Top with additional peanut butter if desired"
-            ]
-        },
-        'Cereal Parfait': {
-            'ingredients': {
-                'honey nut o\'s': 1/8,
-                'applesauce': 1/6,
-                'vanilla yogurt': 1/8
-            },
-            'instructions': [
-                "Layer vanilla yogurt in a bowl",
-                "Add a layer of applesauce",
-                "Top with crushed cereal",
-                "Repeat layers if desired"
+                "Mix pancake mix, eggs, and milk until just combined",
+                "Heat a pan and add a small amount of butter",
+                "Pour about 1/4 cup batter for each pancake",
+                "Cook until bubbles form, then flip",
+                "Drain and chop peaches to serve on top"
             ]
         }
     },
     'Lunch': {
-        'Tuna Sandwich': {
+        'Tuna Melt': {
             'ingredients': {
                 'tuna': 1/2,
                 'bread': 2/10,
-                'mayo': 1/24
+                'mayo': 1/24,
+                'cheddar cheese': 1/8
             },
             'instructions': [
-                "Drain tuna well",
-                "Mix tuna with mayo in a bowl",
-                "Spread on bread slices",
-                "Optional: add any available vegetables"
+                "Drain tuna well and mix with mayo",
+                "Spread tuna mixture on bread slices",
+                "Top with sliced or shredded cheese",
+                "Toast in oven or pan until cheese melts",
+                "Let cool slightly before serving"
             ]
         },
-        'Black Bean Soup': {
+        'Black Bean & Rice Bowl': {
             'ingredients': {
                 'black beans': 1/3,
-                'diced tomatoes': 1/4,
-                'rice': 1/12
-            },
-            'instructions': [
-                "Heat black beans with their liquid",
-                "Add diced tomatoes",
-                "Serve over cooked rice",
-                "Optional: top with any available fresh vegetables"
-            ]
-        },
-        'Rice and Egg Bowl': {
-            'ingredients': {
                 'rice': 1/12,
-                'eggs': 1/4
+                'corn': 1/3,
+                'salsa': 1/8,
+                'cheddar cheese': 1/8
             },
             'instructions': [
-                "Cook rice according to package directions",
-                "Scramble eggs in a pan",
-                "Serve eggs over rice"
+                "Heat black beans in a pan",
+                "Prepare rice according to package directions",
+                "Heat corn separately",
+                "Layer rice, beans, and corn in a bowl",
+                "Top with salsa and shredded cheese"
             ]
         },
-        'Three Bean Salad': {
-            'ingredients': {
-                'black beans': 1/3,
-                'white beans': 1/3,
-                'green beans': 1/3
-            },
-            'instructions': [
-                "Drain and rinse beans",
-                "Mix all beans together",
-                "Season with any available seasonings",
-                "Best if chilled before serving"
-            ]
-        },
-        'Chicken Rice Soup': {
+        'Chicken Tortilla Soup': {
             'ingredients': {
                 'chicken rotini soup': 1/2,
-                'rice': 1/12
+                'tortillas': 1/6,
+                'cheddar cheese': 1/8
             },
             'instructions': [
-                "Heat soup in a pan",
-                "Add cooked rice",
-                "Simmer for 5 minutes",
+                "Heat soup in a saucepan until hot",
+                "Cut 1-2 tortillas into strips",
+                "Top hot soup with tortilla strips",
+                "Sprinkle with shredded cheese",
+                "Let stand 1 minute before serving"
+            ]
+        },
+        'Bean & Cheese Quesadilla': {
+            'ingredients': {
+                'tortillas': 2/6,
+                'refried beans': 1/6,
+                'cheddar cheese': 1/8,
+                'salsa': 1/8
+            },
+            'instructions': [
+                "Spread refried beans on one tortilla",
+                "Sprinkle cheese on top of beans",
+                "Cover with second tortilla",
+                "Heat in a dry pan until golden and cheese melts",
+                "Cut into wedges and serve with salsa"
+            ]
+        },
+        'Macaroni & Cheese with Tuna': {
+            'ingredients': {
+                'macaroni and cheese': 1/2,
+                'tuna': 1/2
+            },
+            'instructions': [
+                "Prepare macaroni and cheese according to package directions",
+                "Drain tuna well",
+                "Mix tuna into prepared macaroni and cheese",
+                "Heat for 1 more minute to warm through",
                 "Let stand briefly before serving"
+            ]
+        },
+        'Tomato Soup & Grilled Cheese': {
+            'ingredients': {
+                'tomato soup': 1/2,
+                'bread': 2/10,
+                'cheddar cheese': 1/8,
+                'butter': 1/32
+            },
+            'instructions': [
+                "Heat tomato soup according to directions",
+                "Butter outside of bread slices",
+                "Place cheese between bread slices (butter side out)",
+                "Cook sandwich in pan until golden and cheese melts",
+                "Serve with hot soup"
+            ]
+        },
+        'Rice & Bean Salad': {
+            'ingredients': {
+                'rice': 1/12,
+                'black beans': 1/6,
+                'white beans': 1/6,
+                'corn': 1/3,
+                'ranch dressing': 1/24
+            },
+            'instructions': [
+                "Cook rice and allow to cool",
+                "Drain and rinse beans and corn",
+                "Mix rice, beans, and corn in a bowl",
+                "Add ranch dressing and toss to coat",
+                "Chill before serving if possible"
+            ]
+        },
+        'Peanut Butter & Jam Sandwich': {
+            'ingredients': {
+                'bread': 2/10,
+                'peanut butter': 1/24,
+                'raspberry jam': 1/24
+            },
+            'instructions': [
+                "Spread peanut butter on one slice of bread",
+                "Spread raspberry jam on the other slice",
+                "Put slices together",
+                "Cut diagonally if desired",
+                "Serve immediately"
+            ]
+        },
+        'Chicken Salad Sandwich': {
+            'ingredients': {
+                'chicken breast pieces': 1/2,
+                'mayo': 1/24,
+                'bread': 2/10
+            },
+            'instructions': [
+                "Drain chicken pieces well",
+                "Chop chicken into smaller pieces if needed",
+                "Mix with mayo until well combined",
+                "Spread on bread slices",
+                "Top with second bread slice"
+            ]
+        },
+        'Egg Salad Sandwich': {
+            'ingredients': {
+                'eggs': 1/4,
+                'mayo': 1/24,
+                'bread': 2/10
+            },
+            'instructions': [
+                "Hard boil eggs, cool, peel and chop",
+                "Mix chopped eggs with mayo",
+                "Add salt and pepper if available",
+                "Spread on bread slices",
+                "Top with second slice of bread"
             ]
         }
     },
     'Dinner': {
-        'Spaghetti with Meat Sauce': {
-            'ingredients': {
-                'spaghetti': 1/6,
-                'spaghetti sauce': 1/4,
-                'fully cooked beef': 1/2
-            },
-            'instructions': [
-                "Bring a large pot of water to boil",
-                "Add spaghetti and cook according to package directions",
-                "Meanwhile, heat the fully cooked beef in a pan",
-                "Add spaghetti sauce to beef and heat through",
-                "Drain pasta and top with meat sauce"
-            ]
-        },
-        'Mexican Rice Bowl': {
+        'Beef & Bean Burrito Bowl': {
             'ingredients': {
                 'rice': 1/12,
+                'fully cooked beef': 1/2,
                 'black beans': 1/3,
                 'corn': 1/3,
                 'salsa': 1/8,
@@ -226,50 +292,143 @@ MEALS = {
             },
             'instructions': [
                 "Cook rice according to package directions",
-                "Heat black beans and corn",
-                "Layer rice, beans, and corn in bowls",
-                "Top with salsa and cheese"
+                "Heat beef in a pan",
+                "Warm beans and corn separately",
+                "Arrange rice in bowl, top with beef, beans, and corn",
+                "Finish with salsa and shredded cheese"
             ]
         },
-        'Chicken and Dumplings Soup': {
+        'Spaghetti with Meat Sauce': {
             'ingredients': {
-                'cream of chicken soup': 1/2,
+                'spaghetti': 1/6,
+                'spaghetti sauce': 1/4,
+                'fully cooked beef': 1/2
+            },
+            'instructions': [
+                "Cook spaghetti according to package directions",
+                "Heat beef in a pan",
+                "Add spaghetti sauce to beef and heat through",
+                "Drain pasta and return to pot",
+                "Pour meat sauce over pasta and toss to combine"
+            ]
+        },
+        'Chicken & Rice Casserole': {
+            'ingredients': {
                 'chicken breast pieces': 1/2,
-                'pancake mix': 1/24
+                'rice': 1/12,
+                'cream of chicken soup': 1/2,
+                'cheddar cheese': 1/8
             },
             'instructions': [
-                "Heat soup and chicken in a pot",
-                "Mix pancake mix with water to make dumpling dough",
-                "Drop small spoonfuls of dough into simmering soup",
-                "Cover and cook 15 minutes"
+                "Cook rice according to package directions",
+                "Mix cooked rice with cream of chicken soup",
+                "Add drained chicken pieces and stir gently",
+                "Top with shredded cheese",
+                "Heat until bubbly and cheese is melted"
             ]
         },
-        'Bean and Cheese Enchiladas': {
+        'Shepherd\'s Pie': {
             'ingredients': {
-                'refried beans': 1/6,
-                'tortillas': 2/6,
-                'cheddar cheese': 1/8,
-                'diced tomatoes': 1/4
-            },
-            'instructions': [
-                "Spread beans on tortillas",
-                "Add cheese and roll up",
-                "Top with warm diced tomatoes",
-                "Heat until cheese melts"
-            ]
-        },
-        'Beef and Bean Burritos': {
-            'ingredients': {
+                'instant potatoes': 1/8,
                 'fully cooked beef': 1/2,
-                'refried beans': 1/6,
-                'tortillas': 2/6,
+                'corn': 1/3,
+                'green beans': 1/3
+            },
+            'instructions': [
+                "Heat beef with drained vegetables",
+                "Prepare instant potatoes according to package",
+                "Place beef and vegetable mixture in a dish or bowl",
+                "Top with prepared mashed potatoes",
+                "Heat until hot throughout"
+            ]
+        },
+        'White Bean Chicken Chili': {
+            'ingredients': {
+                'white beans': 1/3,
+                'chicken breast pieces': 1/2,
+                'corn': 1/3,
                 'salsa': 1/8
             },
             'instructions': [
-                "Heat beef and beans separately",
-                "Warm tortillas",
-                "Fill tortillas with beef and beans",
-                "Top with salsa and roll up"
+                "Combine white beans (with liquid) and drained chicken in pot",
+                "Add corn and salsa",
+                "Bring to a simmer and cook for 10 minutes",
+                "Stir occasionally to prevent sticking",
+                "Let stand 5 minutes before serving"
+            ]
+        },
+        'Beef Stew with Rice': {
+            'ingredients': {
+                'beef stew': 1/2,
+                'rice': 1/12
+            },
+            'instructions': [
+                "Prepare rice according to package directions",
+                "Heat beef stew in a separate pot",
+                "Serve stew over rice",
+                "Let stand for 1 minute before serving",
+                "Stir gently if desired"
+            ]
+        },
+        'Tuna Noodle Casserole': {
+            'ingredients': {
+                'macaroni': 1/6,
+                'tuna': 1/2,
+                'cream of mushroom soup': 1/2,
+                'cheddar cheese': 1/8
+            },
+            'instructions': [
+                "Cook macaroni according to package directions",
+                "Mix drained tuna with cream of mushroom soup",
+                "Add cooked macaroni and stir gently",
+                "Top with shredded cheese",
+                "Heat until bubbly and cheese is melted"
+            ]
+        },
+        'Mexican Bean Enchiladas': {
+            'ingredients': {
+                'tortillas': 2/6,
+                'refried beans': 1/6,
+                'black beans': 1/3,
+                'salsa': 1/8,
+                'cheddar cheese': 1/8
+            },
+            'instructions': [
+                "Mix refried beans with drained black beans",
+                "Spread bean mixture onto tortillas",
+                "Roll up tortillas and place in dish",
+                "Top with salsa and cheese",
+                "Heat until cheese melts"
+            ]
+        },
+        'Chicken Pot Pie Bowl': {
+            'ingredients': {
+                'chicken breast pieces': 1/2,
+                'cream of chicken soup': 1/2,
+                'corn': 1/6,
+                'green beans': 1/6,
+                'instant potatoes': 1/8
+            },
+            'instructions': [
+                "Mix chicken pieces, soup, and drained vegetables in a pot",
+                "Heat mixture until bubbly",
+                "Prepare instant potatoes according to package",
+                "Serve chicken mixture in bowls topped with mashed potatoes",
+                "Let stand briefly before serving"
+            ]
+        },
+        'Chili Mac': {
+            'ingredients': {
+                'chili': 1/2,
+                'macaroni': 1/6,
+                'cheddar cheese': 1/8
+            },
+            'instructions': [
+                "Cook macaroni according to package directions",
+                "Heat chili in a separate pot",
+                "Drain macaroni and add to chili",
+                "Stir in half the cheese until melted",
+                "Top with remaining cheese before serving"
             ]
         }
     }
