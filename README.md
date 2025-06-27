@@ -78,9 +78,21 @@ INSTRUCTIONS:
 
 ## Running the App
 
+### Quick Start (Recommended)
+```bash
+./run.sh
+```
+
+### Manual Start
 ```bash
 streamlit run app.py
 ```
+
+The `run.sh` script will:
+- Check that all required files are present
+- Verify Streamlit is installed
+- Start the app with optimized settings for deployment
+- Hide Streamlit menu elements for a cleaner interface
 
 ## Features
 
@@ -106,6 +118,7 @@ bishops_storehouse_meal_planner/
 ├── app.py              # Main application
 ├── ingredients.txt     # Ingredient database
 ├── meal_options.txt    # Recipe database
+├── run.sh             # Deployment script (executable)
 └── README.md          # This file
 ```
 

@@ -408,6 +408,30 @@ def generate_printable_plan(meal_plan, ingredients, unique_recipes, num_people, 
     return "\n".join(content)
 
 def main():
+    # Configure page to hide Streamlit menu elements
+    st.set_page_config(
+        page_title="Bishop's Storehouse Meal Planner",
+        page_icon="🍽️",
+        layout="wide",
+        initial_sidebar_state="collapsed",
+        menu_items={
+            'Get Help': None,
+            'Report a bug': None,
+            'About': None
+        }
+    )
+    
+    # Hide Streamlit style elements
+    hide_streamlit_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {visibility: hidden;}
+        </style>
+        """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+    
     st.title("Two-Week Meal Planner")
     st.write("This planner helps you create a two-week meal plan using ingredients available at the Bishop's Storehouse.")
     
