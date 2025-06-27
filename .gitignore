@@ -1357,3 +1357,4 @@ venv/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/REQUESTED
 venv/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/top_level.txt
 venv/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/WHEEL
 .env
+__pycache__/app.cpython-39.pyc

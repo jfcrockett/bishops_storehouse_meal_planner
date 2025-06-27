@@ -47,8 +47,23 @@ def load_meals(filename: str = "meal_options.txt") -> Dict:
         for line in lines:
             line = line.strip()
             
-            # Skip comments and empty lines
-            if line.startswith('#') or not line:
+            # Skip comments only
+            if line.startswith('#'):
+                continue
+            
+            # Handle empty lines (meal separators)
+            if not line:
+                # Empty line ends current meal
+                if current_meal_name and current_meal_type:
+                    meals[current_meal_type][current_meal_name] = {
+                        'ingredients': current_ingredients.copy(),
+                        'instructions': current_instructions.copy()
+                    }
+                # Reset for next meal
+                current_meal_name = None
+                current_ingredients = {}
+                current_instructions = []
+                reading_instructions = False
                 continue
             
             # Check for meal type header
@@ -76,24 +91,11 @@ def load_meals(filename: str = "meal_options.txt") -> Dict:
             
             # If reading instructions
             if reading_instructions:
-                if line and not line.startswith('['):
-                    # Remove number prefix if exists
-                    instruction = line
-                    if line[0].isdigit() and '. ' in line:
-                        instruction = line.split('. ', 1)[1]
-                    current_instructions.append(instruction)
-                elif not line:  # Empty line ends current meal
-                    # Save current meal
-                    if current_meal_name and current_meal_type:
-                        meals[current_meal_type][current_meal_name] = {
-                            'ingredients': current_ingredients.copy(),
-                            'instructions': current_instructions.copy()
-                        }
-                    # Reset for next meal
-                    current_meal_name = None
-                    current_ingredients = {}
-                    current_instructions = []
-                    reading_instructions = False
+                # Remove number prefix if exists
+                instruction = line
+                if line[0].isdigit() and '. ' in line:
+                    instruction = line.split('. ', 1)[1]
+                current_instructions.append(instruction)
             
             # If not reading instructions, check for meal name or ingredient
             elif not reading_instructions:
