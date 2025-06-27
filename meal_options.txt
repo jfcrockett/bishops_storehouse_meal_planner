@@ -12,10 +12,10 @@
 [BREAKFAST]
 
 Classic Oatmeal with Fruit
-rolled oats | 0.083
-milk | 0.063
-peaches | 0.167
-honey | 0.042
+rolled oats | 0.5
+milk | 0.5
+peaches | 0.25
+honey | 0.125
 cinnamon | 0.042
 INSTRUCTIONS:
 1. Cook oats with milk according to package directions
@@ -25,12 +25,12 @@ INSTRUCTIONS:
 5. Let cool slightly before serving
 
 Fluffy Pancakes with Peaches
-pancake mix | 0.042
+pancake mix | 0.5
 eggs | 0.25
-milk | 0.063
-butter | 0.031
-peaches | 0.167
-honey | 0.042
+milk | 0.25
+butter | 0.125
+peaches | 0.25
+honey | 0.125
 INSTRUCTIONS:
 1. Mix pancake mix, eggs, and milk until just combined
 2. Heat butter in a pan over medium heat
@@ -39,9 +39,9 @@ INSTRUCTIONS:
 5. Serve topped with drained peaches and honey
 
 Honey Nut Cereal Bowl
-honey nut o's | 0.125
-milk | 0.063
-peaches | 0.167
+honey nut o's | 1.0
+milk | 0.5
+peaches | 0.25
 INSTRUCTIONS:
 1. Pour cereal into a bowl
 2. Add cold milk
@@ -72,10 +72,10 @@ INSTRUCTIONS:
 4. Cut diagonally and serve immediately
 
 Yogurt Parfait with Fruit
-vanilla yogurt | 0.125
-peaches | 0.167
-honey | 0.042
-raisins | 0.063
+vanilla yogurt | 0.5
+peaches | 0.25
+honey | 0.125
+raisins | 0.125
 INSTRUCTIONS:
 1. Drain and chop peaches
 2. Layer yogurt and peaches in a bowl
@@ -109,7 +109,7 @@ INSTRUCTIONS:
 5. Serve hot with soup
 
 Mexican Rice & Bean Bowl
-rice | 0.083
+rice | 0.5
 black beans | 0.333
 corn | 0.333
 salsa | 0.125
@@ -134,8 +134,8 @@ INSTRUCTIONS:
 
 Creamy Macaroni & Cheese
 macaroni and cheese | 0.5
-milk | 0.063
-butter | 0.031
+milk | 0.25
+butter | 0.125
 INSTRUCTIONS:
 1. Cook macaroni according to package directions
 2. Drain and return to pot
@@ -202,8 +202,8 @@ INSTRUCTIONS:
 [DINNER]
 
 Spaghetti with Meat Sauce
-spaghetti | 0.167
-spaghetti sauce | 0.25
+spaghetti | 0.5
+spaghetti sauce | 0.5
 fully cooked beef | 0.5
 INSTRUCTIONS:
 1. Cook spaghetti according to package directions
@@ -213,7 +213,7 @@ INSTRUCTIONS:
 5. Toss well and serve hot
 
 Beef & Rice Power Bowl
-rice | 0.083
+rice | 0.5
 fully cooked beef | 0.5
 corn | 0.333
 black beans | 0.333
@@ -228,7 +228,7 @@ INSTRUCTIONS:
 
 Chicken & Rice Casserole
 chicken breast pieces | 0.5
-rice | 0.083
+rice | 0.5
 cream of chicken soup | 0.5
 corn | 0.333
 cheddar cheese | 0.125
@@ -252,9 +252,9 @@ INSTRUCTIONS:
 
 Beef Stew with Mashed Potatoes
 beef stew | 0.5
-instant potatoes | 0.125
-butter | 0.031
-milk | 0.063
+instant potatoes | 0.5
+butter | 0.125
+milk | 0.25
 INSTRUCTIONS:
 1. Heat beef stew according to directions
 2. Prepare instant potatoes with milk and butter
@@ -262,7 +262,7 @@ INSTRUCTIONS:
 4. Let stand briefly before serving
 
 Tuna Noodle Casserole
-macaroni | 0.167
+macaroni | 0.5
 tuna | 0.5
 cream of mushroom soup | 0.5
 green beans | 0.333
@@ -276,8 +276,8 @@ INSTRUCTIONS:
 
 Bean & Cheese Burritos
 tortillas | 0.333
-refried beans | 0.167
-rice | 0.083
+refried beans | 0.5
+rice | 0.5
 cheddar cheese | 0.125
 salsa | 0.125
 INSTRUCTIONS:
@@ -292,7 +292,7 @@ chicken breast pieces | 0.5
 cream of chicken soup | 0.5
 corn | 0.333
 green beans | 0.333
-instant potatoes | 0.125
+instant potatoes | 0.5
 INSTRUCTIONS:
 1. Heat chicken, soup, corn, and green beans together
 2. Prepare instant potatoes according to package
@@ -304,7 +304,7 @@ Shepherd's Pie
 fully cooked beef | 0.5
 corn | 0.333
 green beans | 0.333
-instant potatoes | 0.125
+instant potatoes | 0.5
 cheddar cheese | 0.125
 INSTRUCTIONS:
 1. Heat beef with corn and green beans
@@ -315,7 +315,7 @@ INSTRUCTIONS:
 
 Cheesy Bean Enchiladas
 tortillas | 0.5
-refried beans | 0.167
+refried beans | 0.5
 black beans | 0.333
 cheddar cheese | 0.125
 salsa | 0.125

@@ -2,6 +2,11 @@ import streamlit as st
 import random
 import os
 from typing import List, Dict
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
 
 def load_ingredients(filename: str = "ingredients.txt") -> Dict:
     """Load ingredient data from text file"""
@@ -239,11 +244,21 @@ def convert_to_practical_measurement(ingredient: str, portion: float, num_people
 
 def calculate_ingredients(selected_meals: List[str], num_people: int, num_days: int) -> tuple[Dict[str, float], list]:
     """Calculate total ingredients needed for selected meals over the specified period."""
+    import streamlit as st
+    
     ingredients = {}
     meal_plan = []
     
+    # Terminal debug output
+    print("\n" + "="*60)
+    print("🔍 DEBUG: Meal Planning Process")
+    print("="*60)
+    print(f"Selected meals: {selected_meals}")
+    print(f"Number of people: {num_people}, Number of days: {num_days}")
+    print()
+    
     # Create meal plan
-    for _ in range(num_days):
+    for day_num in range(num_days):
         day_meals = {
             'Breakfast': [],
             'Lunch': [],
@@ -252,23 +267,50 @@ def calculate_ingredients(selected_meals: List[str], num_people: int, num_days: 
         for meal_type, meals in MEALS.items():
             available_meals = [m for m in selected_meals if m in meals]
             if available_meals:
-                day_meals[meal_type] = random.choice(available_meals)
+                chosen_meal = random.choice(available_meals)
+                day_meals[meal_type] = chosen_meal
+                print(f"Day {day_num + 1} {meal_type}: {chosen_meal}")
         meal_plan.append(day_meals)
     
+    print("\n🔍 DEBUG: Ingredient Calculation")
+    print("-" * 40)
+    
     # Calculate ingredients
-    for day in meal_plan:
+    for day_num, day in enumerate(meal_plan):
+        print(f"\nDay {day_num + 1}:")
         for meal_type, meal in day.items():
             if meal:
                 meal_ingredients = MEALS[meal_type][meal]['ingredients']
+                print(f"  {meal_type} - {meal}:")
                 for ingredient, portion in meal_ingredients.items():
                     if ingredient not in ingredients:
                         ingredients[ingredient] = 0
+                    old_amount = ingredients[ingredient]
                     ingredients[ingredient] += portion
+                    print(f"    {ingredient}: +{portion} (total: {old_amount} → {ingredients[ingredient]})")
+    
+    print(f"\n🔍 DEBUG: Raw ingredient totals (before package conversion):")
+    print("-" * 40)
+    for ingredient, amount in sorted(ingredients.items()):
+        print(f"  {ingredient}: {amount:.3f} portions")
     
     # Convert to actual packages needed
     final_ingredients = {}
+    print(f"\n🔍 DEBUG: Package conversion:")
+    print("-" * 40)
     for ingredient, amount in ingredients.items():
-        final_ingredients[ingredient] = calculate_needed_quantity(ingredient, amount, num_people)
+        package_count = calculate_needed_quantity(ingredient, amount, num_people)
+        final_ingredients[ingredient] = package_count
+        if ingredient in MEAL_PORTIONS:
+            info = MEAL_PORTIONS[ingredient]
+            print(f"  {ingredient}: {amount:.3f} portions × {num_people} people = {amount * num_people:.3f} total")
+            print(f"    Package size: {info['size']} {info['unit']}, Servings per package: {info['servings']}")
+            print(f"    Packages needed: {package_count}")
+        else:
+            print(f"  {ingredient}: {amount:.3f} portions → {package_count} packages (no portion data)")
+    
+    print("="*60)
+    print()
     
     return final_ingredients, meal_plan
 
@@ -285,46 +327,70 @@ def display_recipe(meal_name: str, meal_type: str, num_people: int = 1):
         st.write(f"- {practical_amount}")
 
 def generate_printable_plan(meal_plan, ingredients, unique_recipes, num_people, num_days):
-    """Generate a printable version of the meal plan, shopping list, and recipes"""
-    content = []
+    """Generate a PDF version of the meal plan, shopping list, and recipes"""
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
     
-    # Header
-    content.append("=" * 60)
-    content.append(f"TWO WEEK MEAL PLAN FOR {num_people} {'PERSON' if num_people == 1 else 'PEOPLE'}")
-    content.append("=" * 60)
-    content.append("")
+    # Get styles
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=18,
+        spaceAfter=30,
+        alignment=1  # Center alignment
+    )
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=14,
+        spaceAfter=12,
+        spaceBefore=20
+    )
+    subheading_style = ParagraphStyle(
+        'CustomSubHeading',
+        parent=styles['Heading3'],
+        fontSize=12,
+        spaceAfter=8,
+        spaceBefore=12
+    )
     
-    # Meal Plan
-    content.append("MEAL PLAN")
-    content.append("-" * 20)
-    content.append("")
+    story = []
+    
+    # Title
+    story.append(Paragraph(f"Two Week Meal Plan for {num_people} {'Person' if num_people == 1 else 'People'}", title_style))
+    story.append(Spacer(1, 12))
+    
+    # Meal Plan Section
+    story.append(Paragraph("MEAL PLAN", heading_style))
     
     for day_num in range(num_days):
-        content.append(f"DAY {day_num + 1}:")
+        day_text = f"<b>Day {day_num + 1}:</b><br/>"
         for meal_type, meal in meal_plan[day_num].items():
             if meal:
-                content.append(f"  {meal_type}: {meal}")
+                day_text += f"&nbsp;&nbsp;{meal_type}: {meal}<br/>"
             else:
-                content.append(f"  {meal_type}: *Please select more {meal_type.lower()} options*")
-        content.append("")
+                day_text += f"&nbsp;&nbsp;{meal_type}: <i>Please select more {meal_type.lower()} options</i><br/>"
+        story.append(Paragraph(day_text, styles['Normal']))
+        story.append(Spacer(1, 6))
     
-    # Shopping List
-    content.append("SHOPPING LIST")
-    content.append("-" * 20)
-    content.append("")
+    # Shopping List Section
+    story.append(PageBreak())
+    story.append(Paragraph("SHOPPING LIST", heading_style))
     
+    shopping_text = ""
     for ingredient, quantity in sorted(ingredients.items()):
         if ingredient in MEAL_PORTIONS:
             info = MEAL_PORTIONS[ingredient]
-            content.append(f"☐ {ingredient}: {quantity} × {info['size']} {info['unit']}")
+            shopping_text += f"☐ {ingredient}: {quantity} × {info['size']} {info['unit']}<br/>"
         else:
-            content.append(f"☐ {ingredient}: {quantity} units")
-    content.append("")
+            shopping_text += f"☐ {ingredient}: {quantity} units<br/>"
     
-    # Recipes
-    content.append("RECIPE COLLECTION")
-    content.append("-" * 20)
-    content.append("")
+    story.append(Paragraph(shopping_text, styles['Normal']))
+    
+    # Recipes Section
+    story.append(PageBreak())
+    story.append(Paragraph("RECIPE COLLECTION", heading_style))
     
     # Sort recipes by meal type
     breakfast_recipes = [(meal, meal_type) for meal, meal_type in unique_recipes if meal_type == 'Breakfast']
@@ -333,81 +399,82 @@ def generate_printable_plan(meal_plan, ingredients, unique_recipes, num_people, 
     
     # Breakfast Recipes
     if breakfast_recipes:
-        content.append("BREAKFAST RECIPES")
-        content.append("~" * 18)
-        content.append("")
+        story.append(Paragraph("🌅 Breakfast Recipes", subheading_style))
         
         for meal, meal_type in sorted(breakfast_recipes):
             meal_data = MEALS[meal_type][meal]
-            content.append(f"{meal.upper()}")
-            content.append("")
+            story.append(Paragraph(f"<b>{meal}</b>", styles['Heading4']))
             
-            content.append(f"Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):")
+            # Ingredients
+            ingredients_text = f"<b>Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):</b><br/>"
             for ingredient, portion in meal_data['ingredients'].items():
                 practical_amount = convert_to_practical_measurement(ingredient, portion, num_people)
-                content.append(f"  • {practical_amount}")
-            content.append("")
+                ingredients_text += f"• {practical_amount}<br/>"
+            story.append(Paragraph(ingredients_text, styles['Normal']))
             
-            content.append("Instructions:")
+            # Instructions
+            instructions_text = "<b>Instructions:</b><br/>"
             for i, step in enumerate(meal_data['instructions'], 1):
-                content.append(f"  {i}. {step}")
-            content.append("")
-            content.append("-" * 40)
-            content.append("")
+                instructions_text += f"{i}. {step}<br/>"
+            story.append(Paragraph(instructions_text, styles['Normal']))
+            story.append(Spacer(1, 12))
     
     # Lunch Recipes
     if lunch_recipes:
-        content.append("LUNCH RECIPES")
-        content.append("~" * 14)
-        content.append("")
+        story.append(PageBreak())
+        story.append(Paragraph("🥪 Lunch Recipes", subheading_style))
         
         for meal, meal_type in sorted(lunch_recipes):
             meal_data = MEALS[meal_type][meal]
-            content.append(f"{meal.upper()}")
-            content.append("")
+            story.append(Paragraph(f"<b>{meal}</b>", styles['Heading4']))
             
-            content.append(f"Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):")
+            # Ingredients
+            ingredients_text = f"<b>Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):</b><br/>"
             for ingredient, portion in meal_data['ingredients'].items():
                 practical_amount = convert_to_practical_measurement(ingredient, portion, num_people)
-                content.append(f"  • {practical_amount}")
-            content.append("")
+                ingredients_text += f"• {practical_amount}<br/>"
+            story.append(Paragraph(ingredients_text, styles['Normal']))
             
-            content.append("Instructions:")
+            # Instructions
+            instructions_text = "<b>Instructions:</b><br/>"
             for i, step in enumerate(meal_data['instructions'], 1):
-                content.append(f"  {i}. {step}")
-            content.append("")
-            content.append("-" * 40)
-            content.append("")
+                instructions_text += f"{i}. {step}<br/>"
+            story.append(Paragraph(instructions_text, styles['Normal']))
+            story.append(Spacer(1, 12))
     
     # Dinner Recipes
     if dinner_recipes:
-        content.append("DINNER RECIPES")
-        content.append("~" * 14)
-        content.append("")
+        story.append(PageBreak())
+        story.append(Paragraph("🍽️ Dinner Recipes", subheading_style))
         
         for meal, meal_type in sorted(dinner_recipes):
             meal_data = MEALS[meal_type][meal]
-            content.append(f"{meal.upper()}")
-            content.append("")
+            story.append(Paragraph(f"<b>{meal}</b>", styles['Heading4']))
             
-            content.append(f"Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):")
+            # Ingredients
+            ingredients_text = f"<b>Ingredients (for {num_people} {'person' if num_people == 1 else 'people'}):</b><br/>"
             for ingredient, portion in meal_data['ingredients'].items():
                 practical_amount = convert_to_practical_measurement(ingredient, portion, num_people)
-                content.append(f"  • {practical_amount}")
-            content.append("")
+                ingredients_text += f"• {practical_amount}<br/>"
+            story.append(Paragraph(ingredients_text, styles['Normal']))
             
-            content.append("Instructions:")
+            # Instructions
+            instructions_text = "<b>Instructions:</b><br/>"
             for i, step in enumerate(meal_data['instructions'], 1):
-                content.append(f"  {i}. {step}")
-            content.append("")
-            content.append("-" * 40)
-            content.append("")
+                instructions_text += f"{i}. {step}<br/>"
+            story.append(Paragraph(instructions_text, styles['Normal']))
+            story.append(Spacer(1, 12))
     
-    content.append("=" * 60)
-    content.append("Generated by Bishop's Storehouse Meal Planner")
-    content.append("=" * 60)
+    # Footer
+    story.append(Spacer(1, 30))
+    story.append(Paragraph("<i>Generated by Bishop's Storehouse Meal Planner</i>", styles['Normal']))
     
-    return "\n".join(content)
+    # Build PDF
+    doc.build(story)
+    pdf_bytes = buffer.getvalue()
+    buffer.close()
+    
+    return pdf_bytes
 
 def main():
     # Configure page to hide Streamlit menu elements
@@ -554,14 +621,14 @@ def main():
         st.write("---")
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            if st.button("📄 Download Printable Meal Plan", key="download_plan"):
-                printable_content = generate_printable_plan(meal_plan, ingredients, unique_recipes, num_people, num_days)
-                st.download_button(
-                    label="💾 Download as Text File",
-                    data=printable_content,
-                    file_name=f"meal_plan_{num_people}_people.txt",
-                    mime="text/plain"
-                )
+            pdf_content = generate_printable_plan(meal_plan, ingredients, unique_recipes, num_people, num_days)
+            st.download_button(
+                label="📄 Download PDF Meal Plan",
+                data=pdf_content,
+                file_name=f"meal_plan_{num_people}_people.pdf",
+                mime="application/pdf",
+                key="download_plan"
+            )
         
         if len(selected_meals) < 6:
             st.warning("Consider selecting more meals for better variety in your meal plan!")
