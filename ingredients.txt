@@ -1,0 +1,70 @@
+# BISHOP'S STOREHOUSE INGREDIENTS
+# Format: ingredient_name | package_size | servings_per_package | unit
+# Lines starting with # are comments and will be ignored
+
+# PROTEINS
+fully cooked beef | 14.4 | 2 | oz
+beef stew | 14.4 | 2 | oz
+chili | 14.4 | 2 | oz
+pork and beans | 14.8 | 2 | oz
+tuna | 5 | 2 | oz
+chicken breast pieces | 12.5 | 2 | oz
+
+# SOUPS
+chicken rotini soup | 14.4 | 2 | oz
+cream of chicken soup | 14.5 | 2 | oz
+cream of mushroom soup | 14.5 | 2 | oz
+tomato soup | 14.4 | 2 | oz
+
+# FRUITS
+applesauce | 26.5 | 6 | oz
+peaches | 29 | 6 | oz
+pears | 29 | 6 | oz
+
+# VEGETABLES
+corn | 14.4 | 3 | oz
+green beans | 14.4 | 3 | oz
+spaghetti sauce | 27.7 | 4 | oz
+diced tomatoes | 28 | 4 | oz
+
+# BEANS
+black beans | 14.8 | 3 | oz
+white beans | 14.8 | 3 | oz
+refried beans | 32 | 6 | oz
+
+# STARCHES
+instant potatoes | 28 | 8 | oz
+rice | 32 | 12 | oz
+macaroni | 16 | 6 | oz
+macaroni and cheese | 7 | 2 | oz
+spaghetti | 16 | 6 | oz
+pancake mix | 64 | 24 | oz
+
+# CEREALS
+rolled oats | 32 | 12 | oz
+honey nut o's | 24.5 | 8 | oz
+raisin bran | 22 | 8 | oz
+
+# CONDIMENTS & SPREADS
+honey | 12 | 24 | oz
+raspberry jam | 20.5 | 24 | oz
+peanut butter | 16 | 24 | oz
+mayo | 15 | 24 | oz
+ranch dressing | 16 | 24 | oz
+salsa | 26.5 | 8 | oz
+
+# BREAD & WRAPS
+bread | 20 | 10 | slices
+hot dog buns | 8 | 4 | buns
+tortillas | 12 | 6 | count
+
+# DAIRY & FRESH
+eggs | 12 | 4 | count
+butter | 16 | 32 | oz
+milk | 128 | 16 | oz
+cheddar cheese | 16 | 8 | oz
+vanilla yogurt | 16 | 8 | oz
+
+# OTHER
+raisins | 16 | 16 | oz
+cinnamon | 2.37 | 24 | oz 

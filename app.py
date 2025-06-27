@@ -1,454 +1,141 @@
 import streamlit as st
 import random
+import os
 from typing import List, Dict
 
-# Define package sizes and realistic servings per package
-MEAL_PORTIONS = {
-    'fully cooked beef': {'size': 14.4, 'servings': 2, 'unit': 'oz'},
-    'beef stew': {'size': 14.4, 'servings': 2, 'unit': 'oz'},
-    'chili': {'size': 14.4, 'servings': 2, 'unit': 'oz'},
-    'pork and beans': {'size': 14.8, 'servings': 2, 'unit': 'oz'},
-    'tuna': {'size': 5, 'servings': 2, 'unit': 'oz'},
-    'chicken breast pieces': {'size': 12.5, 'servings': 2, 'unit': 'oz'},
-    'chicken rotini soup': {'size': 14.4, 'servings': 2, 'unit': 'oz'},
-    'cream of chicken soup': {'size': 14.5, 'servings': 2, 'unit': 'oz'},
-    'cream of mushroom soup': {'size': 14.5, 'servings': 2, 'unit': 'oz'},
-    'tomato soup': {'size': 14.4, 'servings': 2, 'unit': 'oz'},
-    'applesauce': {'size': 26.5, 'servings': 6, 'unit': 'oz'},
-    'peaches': {'size': 29, 'servings': 6, 'unit': 'oz'},
-    'pears': {'size': 29, 'servings': 6, 'unit': 'oz'},
-    'corn': {'size': 14.4, 'servings': 3, 'unit': 'oz'},
-    'green beans': {'size': 14.4, 'servings': 3, 'unit': 'oz'},
-    'spaghetti sauce': {'size': 27.7, 'servings': 4, 'unit': 'oz'},
-    'diced tomatoes': {'size': 28, 'servings': 4, 'unit': 'oz'},
-    'black beans': {'size': 14.8, 'servings': 3, 'unit': 'oz'},
-    'white beans': {'size': 14.8, 'servings': 3, 'unit': 'oz'},
-    'refried beans': {'size': 32, 'servings': 6, 'unit': 'oz'},
-    'instant potatoes': {'size': 28, 'servings': 8, 'unit': 'oz'},
-    'rice': {'size': 32, 'servings': 12, 'unit': 'oz'},
-    'honey': {'size': 12, 'servings': 24, 'unit': 'oz'},
-    'raspberry jam': {'size': 20.5, 'servings': 24, 'unit': 'oz'},
-    'peanut butter': {'size': 16, 'servings': 24, 'unit': 'oz'},
-    'mayo': {'size': 15, 'servings': 24, 'unit': 'oz'},
-    'ranch dressing': {'size': 16, 'servings': 24, 'unit': 'oz'},
-    'salsa': {'size': 26.5, 'servings': 8, 'unit': 'oz'},
-    'pancake mix': {'size': 64, 'servings': 24, 'unit': 'oz'},
-    'macaroni': {'size': 16, 'servings': 6, 'unit': 'oz'},
-    'macaroni and cheese': {'size': 7, 'servings': 2, 'unit': 'oz'},
-    'spaghetti': {'size': 16, 'servings': 6, 'unit': 'oz'},
-    'rolled oats': {'size': 32, 'servings': 12, 'unit': 'oz'},
-    'honey nut o\'s': {'size': 24.5, 'servings': 8, 'unit': 'oz'},
-    'raisin bran': {'size': 22, 'servings': 8, 'unit': 'oz'},
-    'bread': {'size': 20, 'servings': 10, 'unit': 'slices'},
-    'hot dog buns': {'size': 8, 'servings': 4, 'unit': 'buns'},
-    'tortillas': {'size': 12, 'servings': 6, 'unit': 'count'},
-    'eggs': {'size': 12, 'servings': 4, 'unit': 'count'},
-    'butter': {'size': 16, 'servings': 32, 'unit': 'oz'},
-    'milk': {'size': 128, 'servings': 16, 'unit': 'oz'},
-    'cheddar cheese': {'size': 16, 'servings': 8, 'unit': 'oz'},
-    'vanilla yogurt': {'size': 16, 'servings': 8, 'unit': 'oz'},
-    'raisins': {'size': 16, 'servings': 16, 'unit': 'oz'},
-    'cinnamon': {'size': 2.37, 'servings': 24, 'unit': 'oz'}
-}
+def load_ingredients(filename: str = "ingredients.txt") -> Dict:
+    """Load ingredient data from text file"""
+    ingredients = {}
+    
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+                line = line.strip()
+                # Skip comments and empty lines
+                if line.startswith('#') or not line:
+                    continue
+                
+                # Parse line: ingredient_name | package_size | servings_per_package | unit
+                parts = [part.strip() for part in line.split('|')]
+                if len(parts) == 4:
+                    name, size, servings, unit = parts
+                    ingredients[name] = {
+                        'size': float(size),
+                        'servings': float(servings),
+                        'unit': unit
+                    }
+    except FileNotFoundError:
+        st.error(f"Could not find {filename}. Please make sure the file exists.")
+        return {}
+    
+    return ingredients
 
-# Define all meals with ingredients and instructions
-MEALS = {
-    'Breakfast': {
-        'Classic Oatmeal with Fruit': {
-            'ingredients': {
-                'rolled oats': 1/12,
-                'milk': 1/16,
-                'peaches': 1/6,
-                'honey': 1/24,
-                'cinnamon': 1/24
-            },
-            'instructions': [
-                "Cook oats with milk according to package directions",
-                "Drain and chop peaches into small pieces",
-                "Stir peaches into hot oatmeal",
-                "Drizzle with honey and sprinkle with cinnamon",
-                "Let cool slightly before serving"
-            ]
-        },
-        'Fluffy Pancakes with Peaches': {
-            'ingredients': {
-                'pancake mix': 1/24,
-                'eggs': 1/4,
-                'milk': 1/16,
-                'butter': 1/32,
-                'peaches': 1/6,
-                'honey': 1/24
-            },
-            'instructions': [
-                "Mix pancake mix, eggs, and milk until just combined",
-                "Heat butter in a pan over medium heat",
-                "Pour 1/4 cup batter for each pancake",
-                "Cook until bubbles form, then flip and cook until golden",
-                "Serve topped with drained peaches and honey"
-            ]
-        },
-        'Honey Nut Cereal Bowl': {
-            'ingredients': {
-                'honey nut o\'s': 1/8,
-                'milk': 1/16,
-                'peaches': 1/6
-            },
-            'instructions': [
-                "Pour cereal into a bowl",
-                "Add cold milk",
-                "Drain and chop peaches",
-                "Top cereal with peach pieces",
-                "Serve immediately"
-            ]
-        },
-        'Scrambled Eggs & Toast': {
-            'ingredients': {
-                'eggs': 1/4,
-                'butter': 1/32,
-                'bread': 2/10,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Beat eggs in a bowl",
-                "Heat butter in a pan over low heat",
-                "Add eggs and scramble gently until set",
-                "Toast bread slices",
-                "Serve eggs over toast, topped with cheese"
-            ]
-        },
-        'Peanut Butter Honey Toast': {
-            'ingredients': {
-                'bread': 2/10,
-                'peanut butter': 1/24,
-                'honey': 1/24
-            },
-            'instructions': [
-                "Toast bread slices until golden",
-                "Spread peanut butter evenly on warm toast",
-                "Drizzle honey over peanut butter",
-                "Cut diagonally and serve immediately"
-            ]
-        },
-        'Yogurt Parfait with Fruit': {
-            'ingredients': {
-                'vanilla yogurt': 1/8,
-                'peaches': 1/6,
-                'honey': 1/24,
-                'raisins': 1/16
-            },
-            'instructions': [
-                "Drain and chop peaches",
-                "Layer yogurt and peaches in a bowl",
-                "Sprinkle raisins on top",
-                "Drizzle with honey",
-                "Serve chilled"
-            ]
-        }
-    },
-    'Lunch': {
-        'Classic Tuna Sandwich': {
-            'ingredients': {
-                'tuna': 1/2,
-                'mayo': 1/24,
-                'bread': 2/10
-            },
-            'instructions': [
-                "Drain tuna completely",
-                "Mix tuna with mayo until well combined",
-                "Spread mixture evenly on bread",
-                "Top with second slice of bread",
-                "Cut in half and serve"
-            ]
-        },
-        'Grilled Cheese & Tomato Soup': {
-            'ingredients': {
-                'bread': 2/10,
-                'cheddar cheese': 1/8,
-                'butter': 1/32,
-                'tomato soup': 1/2
-            },
-            'instructions': [
-                "Heat tomato soup according to package directions",
-                "Butter outside of bread slices",
-                "Place cheese between bread (butter side out)",
-                "Cook in pan until golden and cheese melts",
-                "Serve hot with soup"
-            ]
-        },
-        'Mexican Rice & Bean Bowl': {
-            'ingredients': {
-                'rice': 1/12,
-                'black beans': 1/3,
-                'corn': 1/3,
-                'salsa': 1/8,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Cook rice according to package directions",
-                "Heat black beans and corn",
-                "Layer rice in bowl",
-                "Top with beans, corn, salsa, and cheese",
-                "Serve warm"
-            ]
-        },
-        'Cheese Quesadilla': {
-            'ingredients': {
-                'tortillas': 2/6,
-                'cheddar cheese': 1/8,
-                'salsa': 1/8
-            },
-            'instructions': [
-                "Sprinkle cheese on one tortilla",
-                "Top with second tortilla",
-                "Cook in dry pan until golden and cheese melts",
-                "Flip once during cooking",
-                "Cut into wedges and serve with salsa"
-            ]
-        },
-        'Creamy Macaroni & Cheese': {
-            'ingredients': {
-                'macaroni and cheese': 1/2,
-                'milk': 1/16,
-                'butter': 1/32
-            },
-            'instructions': [
-                "Cook macaroni according to package directions",
-                "Drain and return to pot",
-                "Add cheese packet, milk, and butter",
-                "Stir until creamy and well combined",
-                "Serve hot"
-            ]
-        },
-        'Chicken Noodle Soup with Bread': {
-            'ingredients': {
-                'chicken rotini soup': 1/2,
-                'bread': 1/10,
-                'butter': 1/32
-            },
-            'instructions': [
-                "Heat soup according to package directions",
-                "Toast bread and spread with butter",
-                "Serve soup hot with buttered toast",
-                "Dip bread in soup if desired"
-            ]
-        },
-        'PB&J Sandwich': {
-            'ingredients': {
-                'bread': 2/10,
-                'peanut butter': 1/24,
-                'raspberry jam': 1/24
-            },
-            'instructions': [
-                "Spread peanut butter on one slice of bread",
-                "Spread jam on the other slice",
-                "Press slices together",
-                "Cut diagonally if desired",
-                "Serve immediately"
-            ]
-        },
-        'Chicken Salad Sandwich': {
-            'ingredients': {
-                'chicken breast pieces': 1/2,
-                'mayo': 1/24,
-                'bread': 2/10
-            },
-            'instructions': [
-                "Drain chicken and chop into small pieces",
-                "Mix with mayo until well combined",
-                "Spread on bread slices",
-                "Top with second slice",
-                "Cut and serve"
-            ]
-        },
-        'Bean & Corn Salad': {
-            'ingredients': {
-                'black beans': 1/3,
-                'white beans': 1/3,
-                'corn': 1/3,
-                'ranch dressing': 1/24
-            },
-            'instructions': [
-                "Drain and rinse all beans and corn",
-                "Combine in a large bowl",
-                "Add ranch dressing and toss well",
-                "Chill for better flavor if time allows",
-                "Serve cold"
-            ]
-        },
-        'Chicken & Cheese Wrap': {
-            'ingredients': {
-                'tortillas': 1/6,
-                'chicken breast pieces': 1/2,
-                'cheddar cheese': 1/8,
-                'ranch dressing': 1/24
-            },
-            'instructions': [
-                "Warm tortilla slightly",
-                "Spread ranch dressing on tortilla",
-                "Add drained chicken and cheese",
-                "Roll up tightly",
-                "Cut in half and serve"
-            ]
-        }
-    },
-    'Dinner': {
-        'Spaghetti with Meat Sauce': {
-            'ingredients': {
-                'spaghetti': 1/6,
-                'spaghetti sauce': 1/4,
-                'fully cooked beef': 1/2
-            },
-            'instructions': [
-                "Cook spaghetti according to package directions",
-                "Heat beef in a large pan",
-                "Add spaghetti sauce to beef and simmer 5 minutes",
-                "Drain pasta and add to sauce",
-                "Toss well and serve hot"
-            ]
-        },
-        'Beef & Rice Power Bowl': {
-            'ingredients': {
-                'rice': 1/12,
-                'fully cooked beef': 1/2,
-                'corn': 1/3,
-                'black beans': 1/3,
-                'salsa': 1/8,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Cook rice according to package directions",
-                "Heat beef, corn, and black beans separately",
-                "Layer rice in bowls",
-                "Top with beef, vegetables, salsa, and cheese",
-                "Serve immediately while hot"
-            ]
-        },
-        'Chicken & Rice Casserole': {
-            'ingredients': {
-                'chicken breast pieces': 1/2,
-                'rice': 1/12,
-                'cream of chicken soup': 1/2,
-                'corn': 1/3,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Cook rice according to package directions",
-                "Mix rice, chicken, soup, and corn in a baking dish",
-                "Top with shredded cheese",
-                "Bake or heat until bubbly and cheese melts",
-                "Let stand 5 minutes before serving"
-            ]
-        },
-        'Hearty Chili with Bread': {
-            'ingredients': {
-                'chili': 1/2,
-                'bread': 2/10,
-                'cheddar cheese': 1/8,
-                'butter': 1/32
-            },
-            'instructions': [
-                "Heat chili in a pot until hot",
-                "Toast bread and spread with butter",
-                "Serve chili in bowls topped with cheese",
-                "Serve with buttered toast on the side"
-            ]
-        },
-        'Beef Stew with Mashed Potatoes': {
-            'ingredients': {
-                'beef stew': 1/2,
-                'instant potatoes': 1/8,
-                'butter': 1/32,
-                'milk': 1/16
-            },
-            'instructions': [
-                "Heat beef stew according to directions",
-                "Prepare instant potatoes with milk and butter",
-                "Serve stew over mashed potatoes",
-                "Let stand briefly before serving"
-            ]
-        },
-        'Tuna Noodle Casserole': {
-            'ingredients': {
-                'macaroni': 1/6,
-                'tuna': 1/2,
-                'cream of mushroom soup': 1/2,
-                'green beans': 1/3,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Cook macaroni according to package directions",
-                "Mix drained tuna, soup, and green beans",
-                "Add cooked macaroni and stir gently",
-                "Top with cheese and heat until melted",
-                "Serve hot"
-            ]
-        },
-        'Bean & Cheese Burritos': {
-            'ingredients': {
-                'tortillas': 2/6,
-                'refried beans': 1/6,
-                'rice': 1/12,
-                'cheddar cheese': 1/8,
-                'salsa': 1/8
-            },
-            'instructions': [
-                "Cook rice according to package directions",
-                "Heat refried beans until warm",
-                "Warm tortillas",
-                "Fill with beans, rice, and cheese",
-                "Roll up and serve with salsa"
-            ]
-        },
-        'Chicken Pot Pie Bowl': {
-            'ingredients': {
-                'chicken breast pieces': 1/2,
-                'cream of chicken soup': 1/2,
-                'corn': 1/3,
-                'green beans': 1/3,
-                'instant potatoes': 1/8
-            },
-            'instructions': [
-                "Heat chicken, soup, corn, and green beans together",
-                "Prepare instant potatoes according to package",
-                "Serve chicken mixture in bowls",
-                "Top with a scoop of mashed potatoes",
-                "Serve immediately"
-            ]
-        },
-        'Shepherd\'s Pie': {
-            'ingredients': {
-                'fully cooked beef': 1/2,
-                'corn': 1/3,
-                'green beans': 1/3,
-                'instant potatoes': 1/8,
-                'cheddar cheese': 1/8
-            },
-            'instructions': [
-                "Heat beef with corn and green beans",
-                "Prepare instant potatoes according to package",
-                "Layer beef mixture in bottom of dish",
-                "Top with mashed potatoes and cheese",
-                "Heat until cheese melts"
-            ]
-        },
-        'Cheesy Bean Enchiladas': {
-            'ingredients': {
-                'tortillas': 3/6,
-                'refried beans': 1/6,
-                'black beans': 1/3,
-                'cheddar cheese': 1/8,
-                'salsa': 1/8
-            },
-            'instructions': [
-                "Mix refried beans with drained black beans",
-                "Fill tortillas with bean mixture and some cheese",
-                "Roll up and place in baking dish",
-                "Top with remaining cheese and salsa",
-                "Heat until cheese melts and serve hot"
-            ]
-        }
-    }
-}
+def load_meals(filename: str = "meal_options.txt") -> Dict:
+    """Load meal data from text file"""
+    meals = {'Breakfast': {}, 'Lunch': {}, 'Dinner': {}}
+    
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+            
+        current_meal_type = None
+        current_meal_name = None
+        current_ingredients = {}
+        current_instructions = []
+        reading_instructions = False
+        
+        for line in lines:
+            line = line.strip()
+            
+            # Skip comments and empty lines
+            if line.startswith('#') or not line:
+                continue
+            
+            # Check for meal type header
+            if line.startswith('[') and line.endswith(']'):
+                # Save previous meal if exists
+                if current_meal_name and current_meal_type:
+                    meals[current_meal_type][current_meal_name] = {
+                        'ingredients': current_ingredients.copy(),
+                        'instructions': current_instructions.copy()
+                    }
+                
+                # Reset for new meal type
+                meal_type = line[1:-1].title()
+                current_meal_type = meal_type
+                current_meal_name = None
+                current_ingredients = {}
+                current_instructions = []
+                reading_instructions = False
+                continue
+            
+            # Check for instructions header
+            if line == "INSTRUCTIONS:":
+                reading_instructions = True
+                continue
+            
+            # If reading instructions
+            if reading_instructions:
+                if line and not line.startswith('['):
+                    # Remove number prefix if exists
+                    instruction = line
+                    if line[0].isdigit() and '. ' in line:
+                        instruction = line.split('. ', 1)[1]
+                    current_instructions.append(instruction)
+                elif not line:  # Empty line ends current meal
+                    # Save current meal
+                    if current_meal_name and current_meal_type:
+                        meals[current_meal_type][current_meal_name] = {
+                            'ingredients': current_ingredients.copy(),
+                            'instructions': current_instructions.copy()
+                        }
+                    # Reset for next meal
+                    current_meal_name = None
+                    current_ingredients = {}
+                    current_instructions = []
+                    reading_instructions = False
+            
+            # If not reading instructions, check for meal name or ingredient
+            elif not reading_instructions:
+                if '|' in line:
+                    # This is an ingredient line
+                    parts = [part.strip() for part in line.split('|')]
+                    if len(parts) == 2:
+                        ingredient, portion = parts
+                        current_ingredients[ingredient] = float(portion)
+                else:
+                    # This is a meal name
+                    # Save previous meal if exists
+                    if current_meal_name and current_meal_type:
+                        meals[current_meal_type][current_meal_name] = {
+                            'ingredients': current_ingredients.copy(),
+                            'instructions': current_instructions.copy()
+                        }
+                    
+                    # Start new meal
+                    current_meal_name = line
+                    current_ingredients = {}
+                    current_instructions = []
+                    reading_instructions = False
+        
+        # Save the last meal
+        if current_meal_name and current_meal_type:
+            meals[current_meal_type][current_meal_name] = {
+                'ingredients': current_ingredients.copy(),
+                'instructions': current_instructions.copy()
+            }
+                
+    except FileNotFoundError:
+        st.error(f"Could not find {filename}. Please make sure the file exists.")
+        return {}
+    
+    return meals
+
+# Load data from files
+MEAL_PORTIONS = load_ingredients()
+MEALS = load_meals()
+
+# Data is now loaded from external files above
 
 def calculate_needed_quantity(ingredient: str, servings_needed: float, num_people: int) -> int:
     """Calculate how many packages/cans needed based on serving size and number of people"""

@@ -1,0 +1,327 @@
+# BISHOP'S STOREHOUSE MEAL OPTIONS
+# Format: 
+# [MEAL_TYPE]
+# meal_name
+# ingredient1 | portion
+# ingredient2 | portion
+# INSTRUCTIONS:
+# 1. First instruction
+# 2. Second instruction
+# (blank line separates meals)
+
+[BREAKFAST]
+
+Classic Oatmeal with Fruit
+rolled oats | 0.083
+milk | 0.063
+peaches | 0.167
+honey | 0.042
+cinnamon | 0.042
+INSTRUCTIONS:
+1. Cook oats with milk according to package directions
+2. Drain and chop peaches into small pieces
+3. Stir peaches into hot oatmeal
+4. Drizzle with honey and sprinkle with cinnamon
+5. Let cool slightly before serving
+
+Fluffy Pancakes with Peaches
+pancake mix | 0.042
+eggs | 0.25
+milk | 0.063
+butter | 0.031
+peaches | 0.167
+honey | 0.042
+INSTRUCTIONS:
+1. Mix pancake mix, eggs, and milk until just combined
+2. Heat butter in a pan over medium heat
+3. Pour 1/4 cup batter for each pancake
+4. Cook until bubbles form, then flip and cook until golden
+5. Serve topped with drained peaches and honey
+
+Honey Nut Cereal Bowl
+honey nut o's | 0.125
+milk | 0.063
+peaches | 0.167
+INSTRUCTIONS:
+1. Pour cereal into a bowl
+2. Add cold milk
+3. Drain and chop peaches
+4. Top cereal with peach pieces
+5. Serve immediately
+
+Scrambled Eggs & Toast
+eggs | 0.25
+butter | 0.031
+bread | 0.2
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Beat eggs in a bowl
+2. Heat butter in a pan over low heat
+3. Add eggs and scramble gently until set
+4. Toast bread slices
+5. Serve eggs over toast, topped with cheese
+
+Peanut Butter Honey Toast
+bread | 0.2
+peanut butter | 0.042
+honey | 0.042
+INSTRUCTIONS:
+1. Toast bread slices until golden
+2. Spread peanut butter evenly on warm toast
+3. Drizzle honey over peanut butter
+4. Cut diagonally and serve immediately
+
+Yogurt Parfait with Fruit
+vanilla yogurt | 0.125
+peaches | 0.167
+honey | 0.042
+raisins | 0.063
+INSTRUCTIONS:
+1. Drain and chop peaches
+2. Layer yogurt and peaches in a bowl
+3. Sprinkle raisins on top
+4. Drizzle with honey
+5. Serve chilled
+
+[LUNCH]
+
+Classic Tuna Sandwich
+tuna | 0.5
+mayo | 0.042
+bread | 0.2
+INSTRUCTIONS:
+1. Drain tuna completely
+2. Mix tuna with mayo until well combined
+3. Spread mixture evenly on bread
+4. Top with second slice of bread
+5. Cut in half and serve
+
+Grilled Cheese & Tomato Soup
+bread | 0.2
+cheddar cheese | 0.125
+butter | 0.031
+tomato soup | 0.5
+INSTRUCTIONS:
+1. Heat tomato soup according to package directions
+2. Butter outside of bread slices
+3. Place cheese between bread (butter side out)
+4. Cook in pan until golden and cheese melts
+5. Serve hot with soup
+
+Mexican Rice & Bean Bowl
+rice | 0.083
+black beans | 0.333
+corn | 0.333
+salsa | 0.125
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Cook rice according to package directions
+2. Heat black beans and corn
+3. Layer rice in bowl
+4. Top with beans, corn, salsa, and cheese
+5. Serve warm
+
+Cheese Quesadilla
+tortillas | 0.333
+cheddar cheese | 0.125
+salsa | 0.125
+INSTRUCTIONS:
+1. Sprinkle cheese on one tortilla
+2. Top with second tortilla
+3. Cook in dry pan until golden and cheese melts
+4. Flip once during cooking
+5. Cut into wedges and serve with salsa
+
+Creamy Macaroni & Cheese
+macaroni and cheese | 0.5
+milk | 0.063
+butter | 0.031
+INSTRUCTIONS:
+1. Cook macaroni according to package directions
+2. Drain and return to pot
+3. Add cheese packet, milk, and butter
+4. Stir until creamy and well combined
+5. Serve hot
+
+Chicken Noodle Soup with Bread
+chicken rotini soup | 0.5
+bread | 0.1
+butter | 0.031
+INSTRUCTIONS:
+1. Heat soup according to package directions
+2. Toast bread and spread with butter
+3. Serve soup hot with buttered toast
+4. Dip bread in soup if desired
+
+PB&J Sandwich
+bread | 0.2
+peanut butter | 0.042
+raspberry jam | 0.042
+INSTRUCTIONS:
+1. Spread peanut butter on one slice of bread
+2. Spread jam on the other slice
+3. Press slices together
+4. Cut diagonally if desired
+5. Serve immediately
+
+Chicken Salad Sandwich
+chicken breast pieces | 0.5
+mayo | 0.042
+bread | 0.2
+INSTRUCTIONS:
+1. Drain chicken and chop into small pieces
+2. Mix with mayo until well combined
+3. Spread on bread slices
+4. Top with second slice
+5. Cut and serve
+
+Bean & Corn Salad
+black beans | 0.333
+white beans | 0.333
+corn | 0.333
+ranch dressing | 0.042
+INSTRUCTIONS:
+1. Drain and rinse all beans and corn
+2. Combine in a large bowl
+3. Add ranch dressing and toss well
+4. Chill for better flavor if time allows
+5. Serve cold
+
+Chicken & Cheese Wrap
+tortillas | 0.167
+chicken breast pieces | 0.5
+cheddar cheese | 0.125
+ranch dressing | 0.042
+INSTRUCTIONS:
+1. Warm tortilla slightly
+2. Spread ranch dressing on tortilla
+3. Add drained chicken and cheese
+4. Roll up tightly
+5. Cut in half and serve
+
+[DINNER]
+
+Spaghetti with Meat Sauce
+spaghetti | 0.167
+spaghetti sauce | 0.25
+fully cooked beef | 0.5
+INSTRUCTIONS:
+1. Cook spaghetti according to package directions
+2. Heat beef in a large pan
+3. Add spaghetti sauce to beef and simmer 5 minutes
+4. Drain pasta and add to sauce
+5. Toss well and serve hot
+
+Beef & Rice Power Bowl
+rice | 0.083
+fully cooked beef | 0.5
+corn | 0.333
+black beans | 0.333
+salsa | 0.125
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Cook rice according to package directions
+2. Heat beef, corn, and black beans separately
+3. Layer rice in bowls
+4. Top with beef, vegetables, salsa, and cheese
+5. Serve immediately while hot
+
+Chicken & Rice Casserole
+chicken breast pieces | 0.5
+rice | 0.083
+cream of chicken soup | 0.5
+corn | 0.333
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Cook rice according to package directions
+2. Mix rice, chicken, soup, and corn in a baking dish
+3. Top with shredded cheese
+4. Bake or heat until bubbly and cheese melts
+5. Let stand 5 minutes before serving
+
+Hearty Chili with Bread
+chili | 0.5
+bread | 0.2
+cheddar cheese | 0.125
+butter | 0.031
+INSTRUCTIONS:
+1. Heat chili in a pot until hot
+2. Toast bread and spread with butter
+3. Serve chili in bowls topped with cheese
+4. Serve with buttered toast on the side
+
+Beef Stew with Mashed Potatoes
+beef stew | 0.5
+instant potatoes | 0.125
+butter | 0.031
+milk | 0.063
+INSTRUCTIONS:
+1. Heat beef stew according to directions
+2. Prepare instant potatoes with milk and butter
+3. Serve stew over mashed potatoes
+4. Let stand briefly before serving
+
+Tuna Noodle Casserole
+macaroni | 0.167
+tuna | 0.5
+cream of mushroom soup | 0.5
+green beans | 0.333
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Cook macaroni according to package directions
+2. Mix drained tuna, soup, and green beans
+3. Add cooked macaroni and stir gently
+4. Top with cheese and heat until melted
+5. Serve hot
+
+Bean & Cheese Burritos
+tortillas | 0.333
+refried beans | 0.167
+rice | 0.083
+cheddar cheese | 0.125
+salsa | 0.125
+INSTRUCTIONS:
+1. Cook rice according to package directions
+2. Heat refried beans until warm
+3. Warm tortillas
+4. Fill with beans, rice, and cheese
+5. Roll up and serve with salsa
+
+Chicken Pot Pie Bowl
+chicken breast pieces | 0.5
+cream of chicken soup | 0.5
+corn | 0.333
+green beans | 0.333
+instant potatoes | 0.125
+INSTRUCTIONS:
+1. Heat chicken, soup, corn, and green beans together
+2. Prepare instant potatoes according to package
+3. Serve chicken mixture in bowls
+4. Top with a scoop of mashed potatoes
+5. Serve immediately
+
+Shepherd's Pie
+fully cooked beef | 0.5
+corn | 0.333
+green beans | 0.333
+instant potatoes | 0.125
+cheddar cheese | 0.125
+INSTRUCTIONS:
+1. Heat beef with corn and green beans
+2. Prepare instant potatoes according to package
+3. Layer beef mixture in bottom of dish
+4. Top with mashed potatoes and cheese
+5. Heat until cheese melts
+
+Cheesy Bean Enchiladas
+tortillas | 0.5
+refried beans | 0.167
+black beans | 0.333
+cheddar cheese | 0.125
+salsa | 0.125
+INSTRUCTIONS:
+1. Mix refried beans with drained black beans
+2. Fill tortillas with bean mixture and some cheese
+3. Roll up and place in baking dish
+4. Top with remaining cheese and salsa
+5. Heat until cheese melts and serve hot 
